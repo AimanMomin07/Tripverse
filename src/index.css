@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #1a1a1a;
+  --accent: #C5A56F;
+}
+
+html,body,#root { 
+  height: 100%;
+  background: linear-gradient(180deg, #FBFBFA 0%, #F2F1EF 100%);
+  color: var(--primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+}
+
+/* Prevent page scroll when interacting with chat */
+.chat-outer {
+  overscroll-behavior: contain;
+  position: relative;
+  isolation: isolate;
+}
+
+.chat-container {
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  position: relative;
+  z-index: 1;
+}
+
+/* Full app glass panel */
+.app-glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.6));
+  backdrop-filter: blur(10px);
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4;
+  }
+  
+  .btn {
+    @apply px-6 py-3 rounded-lg shadow-sm transition-all duration-200 font-medium;
+  }
+  
+  .btn-primary {
+    @apply bg-accent text-white hover:bg-opacity-90;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-accent text-accent hover:bg-accent hover:text-white;
+  }
+  
+  .glass {
+    @apply bg-glass backdrop-blur-md border border-gray-200;
+  }
+  
+  .heading-1 {
+    @apply font-display text-4xl md:text-5xl lg:text-6xl font-bold;
+  }
+  
+  .heading-2 {
+    @apply font-display text-3xl md:text-4xl font-bold;
+  }
+  
+  .input {
+    @apply px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent;
+  }
+}
+
+/* Glass + Glowing border helpers */
+.glass-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.55));
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.4);
+}
+
+.glow-border {
+  position: relative;
+}
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(197,165,111,0.15), rgba(197,165,111,0.05));
+  filter: blur(8px);
+  opacity: 0.9;
+  transition: opacity 300ms ease;
+}
+.glow-border:hover::before {
+  opacity: 1;
+  filter: blur(12px) saturate(120%);
+}
+
+@keyframes glowMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.glow-animated {
+  position: relative;
+  overflow: hidden;
+}
+.glow-animated::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(197,165,111,0.25), rgba(197,165,111,0.1), rgba(197,165,111,0.25));
+  background-size: 200% 200%;
+  animation: glowMove 4s linear infinite;
+  filter: blur(10px);
+}
+
